@@ -1,0 +1,15 @@
+.idea/*
+*/target/*
+**/*.iml
+/agp-toolbar/logs
+/agp-webapi/logs
+/logs/
+
+!.idea/runConfiguraions
+
+**/.settings/*
+**/target/
+.classpath
+.project
+/.settings/
+/target/
