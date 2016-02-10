@@ -2,12 +2,12 @@ package file;
 
 import command.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by darmanina on 09/02/2016.
@@ -15,9 +15,18 @@ import java.util.stream.Stream;
 public class InstructionFileParser {
     public List<Command> parse(String filenameAndPath) {
         List<Command> commands = new ArrayList<>();
+        boolean numberOfCommandsLoaded = false;
 
-        try (Stream<String> stream = Files.lines(Paths.get(filenameAndPath))) {
-            stream.map(String::trim).forEach(commandLine -> commands.add(mapLineToCommand(commandLine)));
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filenameAndPath))) {
+            while (reader.ready()) {
+                if (!numberOfCommandsLoaded) {
+                    numberOfCommandsLoaded = true;
+                    String numberOfCommands = reader.readLine();
+                    // Unneeded
+                } else {
+                    commands.add(mapLineToCommand(reader.readLine()));
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

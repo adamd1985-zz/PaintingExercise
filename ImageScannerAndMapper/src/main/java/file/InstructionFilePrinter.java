@@ -17,6 +17,8 @@ public class InstructionFilePrinter {
     public void print(List<Command> commands, String filenameAndPath) {
         Path path = Paths.get(filenameAndPath);
         try (BufferedWriter writer = Files.newBufferedWriter(path, StandardOpenOption.CREATE, StandardOpenOption.CREATE)) {
+            writer.write(Integer.toString(commands.size()));
+            writer.write("\n");
             for (Command command : commands) {
                 writer.write(command.getCommand());
                 writer.write("\n");
